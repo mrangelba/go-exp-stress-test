@@ -37,9 +37,15 @@ func (r *Report) Print(verbose bool) {
 	fmt.Printf("Quantidade total de requests realizados: %d\n", r.TotalRequests)
 	fmt.Printf("----------------------------------------------------------------------\n")
 
+	if _, ok := r.Items["0"]; ok {
+		fmt.Printf("Quantidade de requests não concluídos: %d\n", r.Items["0"]["total"])
+	}
+
 	for key, value := range r.Items {
-		fmt.Printf("Quantidade de requests com status HTTP %s: %d\n", key, value["total"])
-		fmt.Printf("----------------------------------------------------------------------\n")
+		if key != "0" {
+			fmt.Printf("Quantidade de requests com status HTTP %s: %d\n", key, value["total"])
+			fmt.Printf("----------------------------------------------------------------------\n")
+		}
 	}
 }
 
